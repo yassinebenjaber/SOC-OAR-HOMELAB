@@ -6,9 +6,10 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 ## Languages and Utilities Used
 - **PowerShell**: For Wazuh Agent configuration
 - **JSON**: For creating Shuffle workflows and API Calls
-
-- **VMware**: Virtualized the lab environment's infrastructure.
 - **PuTTY**: To generate an SSH key for our Wazuh endpoint
+---
+- **VMware**: Virtualized the lab environment's infrastructure.
+
 - **Wazuh**: a Pre-built VM image version of the SIEM to monitor system activities, detected anomalies, and generated security alerts (installed locally).
 - **Cortex**: To automate threat intelligence on file hashes using analyzers like VirusTotal (installed locally).
 - **TheHive**: For incident case creation, investigation, and response (installed locally).
