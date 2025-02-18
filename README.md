@@ -1,28 +1,149 @@
-<h1>SOC/SOAR Home Lab</h1>
+# SOC/SOAR Home Lab
 
-<h2>Description</h2>
-In my recent project, I led the implementation of a sophisticated Security Orchestration, Automation, and Response (SOAR) system, integrating Wazuh, Shuffle, TheHive, and Cortex technologies. I meticulously configured my Windows 11 machine as a Wazuh client to track file activities. Leveraging Telegram integration, real-time log notifications were seamlessly dispatched, ensuring stakeholders stayed promptly informed of security events.
+## Description
+I led the implementation of a comprehensive Security Orchestration, Automation, and Response (SOAR) system by integrating **Wazuh**, **Shuffle**, **Cortex**, and **TheHive**, along with real-time notifications via **Telegram**. This project enhances threat detection, automates incident response, and streamlines security operations.
 
-Central to the system's architecture was Shuffle, where I crafted workflows to extract file hashes from Wazuh alerts. These hashes were relayed to Cortex, enriched with Malware Bazar and VirusTotal integrations for thorough threat analysis. Cortex's insights into potential risks empowered proactive mitigation strategies.
+---
 
-Results from Cortex seamlessly flowed into TheHive, facilitating incident response management. Predefined use cases enabled automated decision-making based on threat severity, with admins promptly notified. This project showcased my expertise in configuring and integrating diverse security technologies, enhancing our organization's cybersecurity posture in today's evolving threat landscape.
-<br />
+## Step-by-Step Implementation with Examples
 
+### 1. Wazuh Configuration on Windows 11 Client
+**Objective:** Monitor file activities and generate security alerts.
 
-<h2>Languages and Utilities Used</h2>
+**Actions & Examples:**
+- **Installation & Configuration:**  
+  - **Installed** the Wazuh agent on a Windows 11 machine using the MSI installer.
+  - **Configured** the agent to connect to the Wazuh manager.  
+  - **File Monitoring Setup:** Edited `ossec.conf` to watch critical directories. For example:
+    ```xml
+    <localfile>
+      <log_format>syslog</log_format>
+      <location>C:\SensitiveData\</location>
+    </localfile>
+    ```
+  - **Outcome:** Any unauthorized file modifications trigger alerts in Wazuh.
 
-- <b>PowerShell</b>
-  
-<h2>Environments Used </h2>
+---
 
-- <b>VmWare</b> 
-- <b>Docker</b> 
-- <b>Wazuh</b>
-- <b>Cortex</b>
-- <b>TheHive</b>
-- <b>Shuflle</b>
-- <b>Telegram</b>
-- <b>Windows 11</b>
+### 2. Real-Time Notifications with Telegram
+**Objective:** Provide immediate notifications to stakeholders.
+
+**Actions & Examples:**
+- **Bot Creation:**  
+  - Used Telegram’s BotFather to create a new bot and retrieve its token.
+- **Integration via PowerShell:**  
+  - Developed a PowerShell script to send alerts using the Telegram API.  
+  - **Example Script:**
+    ```powershell
+    $botToken = "YOUR_TELEGRAM_BOT_TOKEN"
+    $chatId = "YOUR_CHAT_ID"
+    $message = "Wazuh Alert: Unauthorized file change detected on Windows 11 client."
+    $url = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatId&text=$message"
+    Invoke-RestMethod -Uri $url -Method Get
+    ```
+  - **Outcome:** Every time a Wazuh alert is generated, the script dispatches a real-time message via Telegram.
+
+---
+
+### 3. Automation & Orchestration with Shuffle
+**Objective:** Automate processing of security alerts.
+
+**Actions & Examples:**
+- **Workflow Design:**  
+  - Created a workflow in **Shuffle** to handle incoming Wazuh alerts.
+- **Example Workflow Steps:**
+  1. **Trigger:** A new Wazuh alert is received.
+  2. **Extract File Hash:** The workflow parses the alert to extract a file hash.
+  3. **Send to Cortex:** The extracted hash is sent via an HTTP POST request.
+  - **Example JSON Snippet:**
+    ```json
+    {
+      "trigger": "wazuh_alert_received",
+      "actions": [
+        {
+          "type": "parse",
+          "field": "alert.message",
+          "output": "file_hash"
+        },
+        {
+          "type": "http_request",
+          "method": "POST",
+          "url": "http://cortex.example.com/api/analyzer",
+          "body": { "hash": "${file_hash}" }
+        }
+      ]
+    }
+    ```
+  - **Outcome:** Automation reduces manual intervention by processing alerts immediately.
+
+---
+
+### 4. Threat Analysis with Cortex
+**Objective:** Enrich file hash data with threat intelligence.
+
+**Actions & Examples:**
+- **Integration Setup:**  
+  - Configured Cortex with connectors to **Malware Bazaar** and **VirusTotal**.
+- **Enrichment Process:**  
+  - The workflow sends the file hash to Cortex for analysis.
+  - **Example HTTP Request:**
+    ```json
+    POST /api/analyzer HTTP/1.1
+    Host: cortex.example.com
+    Content-Type: application/json
+
+    {
+      "hash": "abcdef1234567890"
+    }
+    ```
+  - **Outcome:** Cortex responds with threat intelligence data (e.g., risk scores, malicious indicators) that guide further actions.
+
+---
+
+### 5. Incident Response Management with TheHive
+**Objective:** Automate incident response based on Cortex's findings.
+
+**Actions & Examples:**
+- **Integration:**  
+  - Configured TheHive to receive enriched threat data from Cortex.
+- **Automated Case Creation:**  
+  - When Cortex identifies a high-risk threat, an API call is made to create a new case in TheHive.
+  - **Example API Call:**
+    ```json
+    POST /api/case HTTP/1.1
+    Host: thehive.example.com
+    Content-Type: application/json
+
+    {
+      "title": "Security Incident: Malicious File Detected",
+      "description": "Cortex analysis indicates a high risk for file hash abcdef1234567890.",
+      "severity": 3,
+      "tags": ["malware", "urgent"]
+    }
+    ```
+- **Outcome:**  
+  - Predefined playbooks in TheHive categorize the incident and notify admins automatically, streamlining incident response.
+
+---
+
+## Outcome and Impact
+- **Enhanced Monitoring:** Real-time tracking and alerting of file activities using Wazuh.
+- **Instant Notifications:** Immediate stakeholder alerts via Telegram.
+- **Automated Analysis:** Seamless file hash enrichment and threat intelligence retrieval with Cortex.
+- **Streamlined Incident Response:** Automated case creation in TheHive accelerates response times and minimizes manual processes.
+
+---
+
+## Languages and Utilities Used
+- **PowerShell**
+
+- **VMware**: Virtualized the lab environment to simulate real-world infrastructure.
+- **Wazuh**: a Pre-built VM image version of the SIEM to monitor system activities, detected anomalies, and generated security alerts (installed locally).
+- **Cortex**: Performed automated threat intelligence enrichment on file hashes using analyzers like VirusTotal (installed locally).
+- **TheHive**: Managed incidents with case creation, investigation, and response coordination (installed locally).
+- **Shuffle**: Automated alert processing with workflows triggered by Wazuh’s webhook (installed locally).
+- **Telegram**: Provided real-time security alerts to stakeholders via bot integration.
+- **Windows 11**: Acted as the monitored endpoint for real-time file activity detection.
 
 
 
@@ -43,13 +164,13 @@ Real-time alerts bein sent in telegram<br/>
 <br />
 <br />
 <p align="center" >
-File created in windows agent machine<br/>
+File created on the monitored endpoint<br/>
  <img src="https://imgur.com/5GsxRTA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <p align="center" >
 Alerts in Wazuh <br/>
- <img src="https://imgur.com/oLdkUbK.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+ <img src="https://imgur.com/lx5RsPa.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <p align="center" >
@@ -59,7 +180,7 @@ Automated Workflow in Shuffle <br/>
 <br />
 <p align="center" >
 Thehive Interface<br/>
- <img src="https://imgur.com/zhwayR1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+ <img src="https://imgur.com/kfYYiBS.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <p align="center" >
@@ -69,7 +190,7 @@ Usecase and observations in thehive<br/>
 <br />
 <p align="center" >
 Cortex Interface<br/>
- <img src="https://imgur.com/unelf8t.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+ <img src="https://imgur.com/E9MbTDs.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 
