@@ -150,7 +150,7 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 
 
 
-<h2>Program walk-through:</h2>
+<h2>Screenshot snippets:</h2>
 
 <p align="center">
 Wazuh Interface : <br/>
