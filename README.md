@@ -5,6 +5,7 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 
 ## Languages and Utilities Used
 - **PowerShell**: For Wazuh Agent configuration
+- **JSON**: For creating Shuffle workflows and API Calls
 
 - **VMware**: Virtualized the lab environment's infrastructure.
 - **PuTTY**: To generate an SSH key for our Wazuh endpoint
@@ -46,8 +47,8 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
   - Developed a PowerShell script to send alerts using the Telegram API.  
   - **Example Script:**
     ```powershell
-    $botToken = "#Telegram Bot Token#"
-    $chatId = "#Chat ID#"
+    $botToken = "123456789:ABCdefGhIJKlmNoPQRstuVWXyz-abcdefghi"
+    $chatId = "233423"
     $message = "Wazuh Alert: Unauthorized file change detected on Windows 11 client."
     $url = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatId&text=$message"
     Invoke-RestMethod -Uri $url -Method Get
