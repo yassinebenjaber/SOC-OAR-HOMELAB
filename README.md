@@ -7,9 +7,10 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 - **PowerShell**: For Wazuh Agent configuration
 
 - **VMware**: Virtualized the lab environment's infrastructure.
+- **PuTTY**: To generate an SSH key for our Wazuh endpoint
 - **Wazuh**: a Pre-built VM image version of the SIEM to monitor system activities, detected anomalies, and generated security alerts (installed locally).
-- **Cortex**: Performed automated threat intelligence enrichment on file hashes using analyzers like VirusTotal (installed locally).
-- **TheHive**: Managed incidents with case creation, investigation, and response coordination (installed locally).
+- **Cortex**: To automate threat intelligence on file hashes using analyzers like VirusTotal (installed locally).
+- **TheHive**: For incident case creation, investigation, and response (installed locally).
 - **Shuffle**: Automated alert processing with workflows triggered by Wazuh’s webhook (installed locally).
 - **Telegram**: Provided real-time security alerts to stakeholders via bot integration.
 - **Windows 11**: Acted as the monitored endpoint for real-time file activity detection.
@@ -154,7 +155,7 @@ Wazuh Interface : <br/>
 <img src="https://imgur.com/xGYdGSD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <p align="center" >
-Wazuh agent in my windowsq 11 machine<br/>
+Wazuh agent on Win 11 endpoint machine<br/>
  <img src="https://imgur.com/yADP0VQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
