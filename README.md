@@ -6,7 +6,7 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 ## Languages and Utilities Used
 - **PowerShell**: For Wazuh Agent configuration
 
-- **VMware**: Virtualized the lab environment to simulate real-world infrastructure.
+- **VMware**: Virtualized the lab environment's infrastructure.
 - **Wazuh**: a Pre-built VM image version of the SIEM to monitor system activities, detected anomalies, and generated security alerts (installed locally).
 - **Cortex**: Performed automated threat intelligence enrichment on file hashes using analyzers like VirusTotal (installed locally).
 - **TheHive**: Managed incidents with case creation, investigation, and response coordination (installed locally).
@@ -28,7 +28,7 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
     ```xml
     <localfile>
       <log_format>syslog</log_format>
-      <location>C:\SensitiveData\</location>
+      <location>C:\test\test.txt\</location>
     </localfile>
     ```
   - **Outcome:** Any unauthorized file modifications trigger alerts in Wazuh.
@@ -45,8 +45,8 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
   - Developed a PowerShell script to send alerts using the Telegram API.  
   - **Example Script:**
     ```powershell
-    $botToken = "YOUR_TELEGRAM_BOT_TOKEN"
-    $chatId = "YOUR_CHAT_ID"
+    $botToken = "#Telegram Bot Token#"
+    $chatId = "#Chat ID#"
     $message = "Wazuh Alert: Unauthorized file change detected on Windows 11 client."
     $url = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatId&text=$message"
     Invoke-RestMethod -Uri $url -Method Get
@@ -99,7 +99,7 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
   - **Example HTTP Request:**
     ```json
     POST /api/analyzer HTTP/1.1
-    Host: cortex.example.com
+    Host: cortex
     Content-Type: application/json
 
     {
@@ -115,13 +115,13 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 
 **Actions & Examples:**
 - **Integration:**  
-  - Configured TheHive to receive enriched threat data from Cortex.
+  - Configured TheHive to receive threat data from Cortex.
 - **Automated Case Creation:**  
   - When Cortex identifies a high-risk threat, an API call is made to create a new case in TheHive.
   - **Example API Call:**
     ```json
     POST /api/case HTTP/1.1
-    Host: thehive.example.com
+    Host: thehive
     Content-Type: application/json
 
     {
