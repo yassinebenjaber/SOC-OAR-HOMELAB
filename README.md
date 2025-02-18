@@ -1,8 +1,18 @@
 # SOC/SOAR Home Lab
 
 ## Description
-I led the implementation of a comprehensive Security Orchestration, Automation, and Response (SOAR) system by integrating **Wazuh**, **Shuffle**, **Cortex**, and **TheHive**, along with real-time notifications via **Telegram**. This project enhances threat detection, automates incident response, and streamlines security operations.
+I implemented a Security Operations Center (SOC) home lab with a Security Orchestration, Automation, and Response (SOAR) system. The project includes **Wazuh**, **Shuffle**, **Cortex**, **TheHive**, and **Telegram** to detect, analyze, and respond to security events.  
 
+## Languages and Utilities Used
+- **PowerShell**: For Wazuh Agent configuration
+
+- **VMware**: Virtualized the lab environment to simulate real-world infrastructure.
+- **Wazuh**: a Pre-built VM image version of the SIEM to monitor system activities, detected anomalies, and generated security alerts (installed locally).
+- **Cortex**: Performed automated threat intelligence enrichment on file hashes using analyzers like VirusTotal (installed locally).
+- **TheHive**: Managed incidents with case creation, investigation, and response coordination (installed locally).
+- **Shuffle**: Automated alert processing with workflows triggered by Wazuh’s webhook (installed locally).
+- **Telegram**: Provided real-time security alerts to stakeholders via bot integration.
+- **Windows 11**: Acted as the monitored endpoint for real-time file activity detection.
 ---
 
 ## Step-by-Step Implementation with Examples
@@ -134,16 +144,6 @@ I led the implementation of a comprehensive Security Orchestration, Automation, 
 
 ---
 
-## Languages and Utilities Used
-- **PowerShell**
-
-- **VMware**: Virtualized the lab environment to simulate real-world infrastructure.
-- **Wazuh**: a Pre-built VM image version of the SIEM to monitor system activities, detected anomalies, and generated security alerts (installed locally).
-- **Cortex**: Performed automated threat intelligence enrichment on file hashes using analyzers like VirusTotal (installed locally).
-- **TheHive**: Managed incidents with case creation, investigation, and response coordination (installed locally).
-- **Shuffle**: Automated alert processing with workflows triggered by Wazuh’s webhook (installed locally).
-- **Telegram**: Provided real-time security alerts to stakeholders via bot integration.
-- **Windows 11**: Acted as the monitored endpoint for real-time file activity detection.
 
 
 
