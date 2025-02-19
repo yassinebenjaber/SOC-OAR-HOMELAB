@@ -1,7 +1,7 @@
 # SOC/SOAR Home Lab
 
 ## Description
-I implemented a Security Operations Center (SOC) home lab with a Security Orchestration, Automation, and Response (SOAR) system. The project includes **Wazuh**, **Shuffle**, **Cortex**, **TheHive**, and **Telegram** to detect, analyze, and respond to security events.  
+Here I implemented a SOC with a SOAR. The project includes **Wazuh**, **Shuffle**, **Cortex**, **TheHive**, and **Telegram** to detect, analyze, and respond to security events.  
 
 ## Languages and Utilities Used
 - **PowerShell**: For Wazuh Agent configuration
