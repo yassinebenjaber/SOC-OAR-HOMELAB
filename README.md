@@ -34,6 +34,7 @@ A menu will show up, so to add a new agent, type A and follow the prompts to ent
 - Agent name
 - Agent IP address or CIDR
 - Agent group (if applicable)
+  
 After adding the agent, you’ll need to extract its key using E and provide that key during the agent registration process on the client machine.
 
 ### 1. Wazuh Configuration on Windows 11 Client
