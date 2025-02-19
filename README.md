@@ -19,6 +19,22 @@ I implemented a Security Operations Center (SOC) home lab with a Security Orches
 ---
 
 ## Step-by-Step Implementation with Examples
+After launching our Wazuh machine, Open the terminal (directly from the VM console or via SSH if enabled).
+
+Log in with the default credentials (if unchanged):
+
+Username: root
+Password: wazuh
+Once logged in, run the following command to access the Wazuh manager's configuration menu:
+
+/var/ossec/bin/manage_agents
+
+A menu will show up, so to add a new agent, type A and follow the prompts to enter:
+
+Agent name
+Agent IP address or CIDR
+Agent group (if applicable)
+After adding the agent, you’ll need to extract its key using E and provide that key during the agent registration process on the client machine.
 
 ### 1. Wazuh Configuration on Windows 11 Client
 **Objective:** Monitor file activities and generate security alerts.
